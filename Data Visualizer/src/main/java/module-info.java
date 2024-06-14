@@ -1,4 +1,4 @@
-module org.example.assignment1 {
+module org.example.dataVisualizer {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.web;
@@ -6,6 +6,7 @@ module org.example.assignment1 {
 
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires java.desktop;
 
     opens org.example.dataVisualizer to javafx.fxml;
     exports org.example.dataVisualizer;

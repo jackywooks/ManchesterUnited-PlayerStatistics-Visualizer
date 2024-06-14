@@ -1,14 +1,16 @@
 package org.example.dataVisualizer;
 //import Statement
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableView;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -26,7 +28,7 @@ import java.sql.Statement;
  * @since       1.0
  */
 
-public class PlayerStatController {
+public class PlayerChartController {
     /**
      * Initialize the Tableview and the column variables.
      */
@@ -104,15 +106,14 @@ public class PlayerStatController {
     }
 
     /**
-     * Switch the scene to Chart View, by loading the "player-chart.fxml", retrieve the current stage, and switch to the loaded fxml
+     * Switch the scene to Table View, by loading the "player-stat.fxml", retrieve the current stage, and switch to the loaded fxml
      *
-     * @param event Action Event, fxidswtichChart button in player-stat
+     * @param event Action Event, fxid:swtichTable button in player-chart
      */
     @FXML
-    public void switchToChartView(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-chart.fxml"));
-       //Retrieve the current stage from the Action EVent
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+    public void switchToTableView(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
         //add Bootstrap Stylesheet to the scene
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
