@@ -1,6 +1,5 @@
-package org.example.assignment1;
+package org.example.dataVisualizer;
 //import Statement
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TableColumn;

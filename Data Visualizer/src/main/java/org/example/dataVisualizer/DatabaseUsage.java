@@ -1,4 +1,4 @@
-package org.example.assignment1;
+package org.example.dataVisualizer;
 
 // import statements
 import java.sql.Connection;

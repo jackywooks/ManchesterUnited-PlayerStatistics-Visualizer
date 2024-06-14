@@ -1,15 +1,11 @@
-package org.example.assignment1;
+package org.example.dataVisualizer;
 //Import Statement
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -28,6 +24,8 @@ public class PlayerStatApplication extends Application {
         //add Bootstrap Stylesheet to the scene
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
         stage.setTitle("Manchester United 23/24 Player Statistics");
+        //Apply the icon to the taskbar
+        stage.getIcons().add(new Image("file:src/main/resources/org/example/dataVisualizer/images/icon.png"));
         stage.setScene(scene);
         stage.show();
     }

@@ -7,6 +7,6 @@ module org.example.assignment1 {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
 
-    opens org.example.assignment1 to javafx.fxml;
-    exports org.example.assignment1;
+    opens org.example.dataVisualizer to javafx.fxml;
+    exports org.example.dataVisualizer;
 }
