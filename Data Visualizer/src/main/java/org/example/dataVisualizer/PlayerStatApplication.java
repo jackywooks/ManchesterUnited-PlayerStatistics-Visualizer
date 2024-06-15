@@ -21,6 +21,7 @@ public class PlayerStatApplication extends Application {
      /**
      * Method to start the application
      */
+
      @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
