@@ -7,8 +7,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -32,36 +30,25 @@ public class PlayerChartController {
      */
     @FXML
     private BarChart<String,Number> goalLeaderboard;
-    /**
-     * X-axis of the barchart, showing the goals
-     */
-    @FXML
-    private NumberAxis goalAxis;
-    /**
-     * Y-axis of the barchart, showing the players
-     */
-    @FXML
-    private CategoryAxis playerAxis;
 
     /**
      * Create a XYChart Series to store the player name and goals
      */
-    private XYChart.Series<String,Number> playerSeries = new XYChart.Series<String,Number>();
+    private XYChart.Series<String,Number> playerGoalSeries = new XYChart.Series<String,Number>();
 
     /**
      * Initialize the Chart and link with the playerSeries
      */
     @FXML
     private void initialize(){
-        showPlayerStat();
-        goalLeaderboard.getData().add(playerSeries);
+        showGoalLeaderboard();
     }
 
     /**
      * To retrieve data from DB and display in the TableView
      */
     @FXML
-    private void showPlayerStat(){
+    private void showGoalLeaderboard(){
         DatabaseConnector dbConnector = new DatabaseConnector();
         try (Connection connection = dbConnector.connect()) {
             Statement statement = connection.createStatement();
@@ -71,16 +58,18 @@ public class PlayerChartController {
                 String name = resultSet.getString("player_name");
                 Integer goal = resultSet.getInt("goal");
                 //Store the data in a XY Series
-                playerSeries.getData().add(new XYChart.Data<String,Number>(name,goal));
+                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(name,goal));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        goalLeaderboard.getData().add(playerGoalSeries);
     }
     /**
      * Switch the scene to Table View, by loading the "player-stat.fxml", retrieve the current stage, and switch to the loaded fxml
      *
-     * @param event Action Event, fxid:swtichTable button in player-chart
+     * @param event Action Event, fxid:switchTable button in player-chart
      */
     @FXML
     public void switchToTableView(ActionEvent event) throws IOException {

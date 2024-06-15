@@ -43,7 +43,16 @@ public class PlayerStatController {
     private TableColumn<Player, Integer> assistColumn;
 
     @FXML
-    private TableColumn<Player, Player.Position> positionColumn;
+    private TableColumn<Player, Integer> startedColumn;
+
+    @FXML
+    private TableColumn<Player, Integer> playMinColumn;
+
+    @FXML
+    private TableColumn<Player, Integer> ycColumn;
+
+    @FXML
+    private TableColumn<Player, Integer> rcColumn;
 
     @FXML
     private TableColumn<Player, Double> ratingColumn;
@@ -62,9 +71,11 @@ public class PlayerStatController {
         nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         goalColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("goal"));
         assistColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("assist"));
+        playMinColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("playing_minutes"));
+        ycColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("yellow_card"));
+        rcColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("red_card"));
         ratingColumn.setCellValueFactory(new PropertyValueFactory<Player,Double>("rating"));
-        positionColumn.setCellValueFactory(new PropertyValueFactory<Player, Player.Position>("position"));
-//      positionColumn.setCellValueFactory(data -> new SimpleObjectProperty<>(data.getValue().getPosition().toString()));
+        startedColumn.setCellValueFactory(new PropertyValueFactory<Player, Integer>("started"));
         //link the student table with the student data list
         playerRecord.setItems(playerData);
         showPlayerStat();
@@ -82,19 +93,15 @@ public class PlayerStatController {
             while (resultSet.next()) {
                 //Store the result from SQL query to variables
                 String playerName = resultSet.getString("player_name");
-                Player.Position position;
-                try {
-                    position = Player.Position.valueOf(resultSet.getString("player_position"));
-                }catch (IllegalArgumentException e) {
-                    // Handle invalid position string (e.g., log error or set default)
-                    System.err.println("Invalid position value: " + resultSet.getString("player_position"));
-                    position = Player.Position.MF; // Set a default position
-                }
                 int goal = resultSet.getInt("goal");
                 int assist = resultSet.getInt("assist");
+                int started = resultSet.getInt("started");
+                int playing_minutes = resultSet.getInt("playing_minutes");
+                int yellow_card = resultSet.getInt("yellow_card");
+                int red_card = resultSet.getInt("red_card");
                 double rating = resultSet.getDouble("rating");
                 //Create a player instance to store the players' info.
-                Player newPlayer = new Player(playerName, position, goal, assist, rating);
+                Player newPlayer = new Player(playerName, goal, assist,started, playing_minutes,yellow_card,red_card, rating);
                 //Add every player in the playerData List
                 playerData.add(newPlayer);
             }
@@ -106,7 +113,7 @@ public class PlayerStatController {
     /**
      * Switch the scene to Chart View, by loading the "player-chart.fxml", retrieve the current stage, and switch to the loaded fxml
      *
-     * @param event Action Event, fxidswtichChart button in player-stat
+     * @param event Action Event, fxid:switchChart button in player-stat
      */
     @FXML
     public void switchToChartView(ActionEvent event) throws IOException {

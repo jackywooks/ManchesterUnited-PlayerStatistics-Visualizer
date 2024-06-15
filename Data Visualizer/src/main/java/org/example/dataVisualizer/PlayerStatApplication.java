@@ -24,7 +24,7 @@ public class PlayerStatApplication extends Application {
 
      @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-chart.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         //add Bootstrap Stylesheet to the scene
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
