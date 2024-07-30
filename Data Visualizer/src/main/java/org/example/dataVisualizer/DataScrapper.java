@@ -30,7 +30,7 @@ public class DataScrapper {
      * Scrap Data from Team Page in Fotmob to get the player ID and Name
      * Use the Player and Name to get the full data in player profile
      */
-    public static void getPlayerData() throws IOException, InterruptedException {
+    public static void getPlayerData()  {
             try {
                 //Create New Client and Request to access player ID and NAme in the Manchester United Team
                 HttpClient client = HttpClient.newHttpClient();
