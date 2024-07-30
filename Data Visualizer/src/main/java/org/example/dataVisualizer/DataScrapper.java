@@ -13,8 +13,6 @@ import java.net.http.HttpResponse;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com

@@ -7,8 +7,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
-import java.io.IOException;
-
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
  * @version     1.0
