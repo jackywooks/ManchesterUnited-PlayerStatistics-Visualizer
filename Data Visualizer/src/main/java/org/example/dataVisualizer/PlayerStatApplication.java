@@ -20,6 +20,7 @@ import static org.example.dataVisualizer.ApiClient.getPlayerList;
  * @since       1.0
  */
 
+// Version 1.1 Update to fetch data from API
 public class PlayerStatApplication extends Application {
 
     // Create an observable list to store the API calls

@@ -20,10 +20,11 @@ import static org.example.dataVisualizer.PlayerStatApplication.playerList;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
- * @version     1.0
+ * @version     1.1
  * @since       1.0
  */
 
+// Version 1.1 Update to fetch data from API
 public class PlayerChartController {
     @FXML
     private Label title;
