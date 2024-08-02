@@ -1,0 +1,189 @@
+[
+  {
+    "id": 1199272,
+    "name": "Rasmus Højlund",
+    "goals": 0,
+    "assist": 0,
+    "started": 4,
+    "playing_minutes": 290,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 6.225
+  },
+  {
+    "id": 422685,
+    "name": "Bruno Fernandes",
+    "goals": 1,
+    "assist": 0,
+    "started": 4,
+    "playing_minutes": 375,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 7.42
+  },
+  {
+    "id": 1203665,
+    "name": "Alejandro Garnacho",
+    "goals": 0,
+    "assist": 0,
+    "started": 1,
+    "playing_minutes": 66,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 7.14
+  },
+  {
+    "id": 843099,
+    "name": "Scott McTominay",
+    "goals": 1,
+    "assist": 0,
+    "started": 3,
+    "playing_minutes": 270,
+    "yellow_card": 2,
+    "red_card": 0,
+    "rating": 6.91
+  },
+  {
+    "id": 696365,
+    "name": "Marcus Rashford",
+    "goals": 7,
+    "assist": 2,
+    "started": 26,
+    "playing_minutes": 2278,
+    "yellow_card": 2,
+    "red_card": 0,
+    "rating": 6.98
+  },
+  {
+    "id": 1292810,
+    "name": "Kobbie Mainoo",
+    "goals": 0,
+    "assist": 0,
+    "started": 4,
+    "playing_minutes": 370,
+    "yellow_card": 1,
+    "red_card": 0,
+    "rating": 6.942
+  },
+  {
+    "id": 751550,
+    "name": "Diogo Dalot",
+    "goals": 0,
+    "assist": 0,
+    "started": 2,
+    "playing_minutes": 153,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 7.22
+  },
+  {
+    "id": 255610,
+    "name": "Harry Maguire",
+    "goals": 2,
+    "assist": 2,
+    "started": 18,
+    "playing_minutes": 1650,
+    "yellow_card": 4,
+    "red_card": 0,
+    "rating": 7.18
+  },
+  {
+    "id": 1070052,
+    "name": "Amad Diallo",
+    "goals": 1,
+    "assist": 1,
+    "started": 3,
+    "playing_minutes": 388,
+    "yellow_card": 1,
+    "red_card": 0,
+    "rating": 6.73
+  },
+  {
+    "id": 413557,
+    "name": "Anthony Martial",
+    "goals": 1,
+    "assist": 0,
+    "started": 5,
+    "playing_minutes": 445,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 6.29
+  },
+  {
+    "id": 967622,
+    "name": "Antony",
+    "goals": 1,
+    "assist": 1,
+    "started": 15,
+    "playing_minutes": 1323,
+    "yellow_card": 5,
+    "red_card": 0,
+    "rating": 6.84
+  },
+  {
+    "id": 208494,
+    "name": "Casemiro",
+    "goals": 1,
+    "assist": 2,
+    "started": 24,
+    "playing_minutes": 1985,
+    "yellow_card": 7,
+    "red_card": 0,
+    "rating": 7.16
+  },
+  {
+    "id": 157723,
+    "name": "Christian Eriksen",
+    "goals": 1,
+    "assist": 0,
+    "started": 4,
+    "playing_minutes": 350,
+    "yellow_card": 0,
+    "red_card": 0,
+    "rating": 7.657499999999999
+  },
+  {
+    "id": 1113785,
+    "name": "Hannibal Mejbri",
+    "goals": 1,
+    "assist": 0,
+    "started": 1,
+    "playing_minutes": 130,
+    "yellow_card": 1,
+    "red_card": 0,
+    "rating": 7.34
+  },
+  {
+    "id": 750032,
+    "name": "Mason Mount",
+    "goals": 1,
+    "assist": 0,
+    "started": 5,
+    "playing_minutes": 513,
+    "yellow_card": 2,
+    "red_card": 0,
+    "rating": 6.6
+  },
+  {
+    "id": 230982,
+    "name": "Raphaël Varane",
+    "goals": 1,
+    "assist": 0,
+    "started": 16,
+    "playing_minutes": 1371,
+    "yellow_card": 2,
+    "red_card": 0,
+    "rating": 6.76
+  },
+  {
+    "id": 258269,
+    "name": "Victor Nilsson Lindelöf",
+    "goals": 1,
+    "assist": 1,
+    "started": 14,
+    "playing_minutes": 1332,
+    "yellow_card": 2,
+    "red_card": 0,
+    "rating": 6.79
+  }
+]
