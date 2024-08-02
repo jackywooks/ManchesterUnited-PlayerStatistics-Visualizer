@@ -1,6 +1,6 @@
 package org.example.dataVisualizer;
-//import Statement
 
+//import Statement
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -87,6 +87,7 @@ public class PlayerChartController {
         ratingBoard.setData(ratingData);
         //Default Hiding the rating board
         ratingBoard.setVisible(false);
+        ratingBoard.setStyle("-fx-text-base-color: white");
     }
     /**
      * Change display charts
@@ -113,7 +114,7 @@ public class PlayerChartController {
     public void switchToTableView(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
         //Retrieve the current stage from the Action EVent
-        PlayerStatController.switchingView(event, fxmlLoader);
+        PlayerDetailController.switchingView(event, fxmlLoader);
     }
 
     /**
