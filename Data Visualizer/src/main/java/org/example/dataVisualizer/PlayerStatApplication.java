@@ -36,7 +36,7 @@ public class PlayerStatApplication extends Application {
 
          // Load Data from API
         playerList = loadPlayerDataFromAPI();
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-chart.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         //add Bootstrap Stylesheet to the scene
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());

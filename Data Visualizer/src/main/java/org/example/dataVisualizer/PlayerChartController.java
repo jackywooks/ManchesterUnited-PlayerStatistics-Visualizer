@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static org.example.dataVisualizer.PlayerStatApplication.playerList;
+import static org.example.dataVisualizer.PlayerStatController.switchingView;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -114,7 +115,7 @@ public class PlayerChartController {
     public void switchToTableView(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
         //Retrieve the current stage from the Action EVent
-        PlayerStatController.switchingView(event, fxmlLoader);
+        switchingView(event, fxmlLoader);
     }
 
     /**

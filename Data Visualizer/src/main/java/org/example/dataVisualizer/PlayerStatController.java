@@ -5,8 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TableColumn;
+import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -60,6 +59,10 @@ public class PlayerStatController {
      */
     private ObservableList<Player> playerData = FXCollections.observableArrayList(playerList);
 
+    /**
+     * Create a variable to store the current selected player
+     */
+    private static Player selectedPlayer = null;
 
     /**
      * Initialize the Tableview and link with the playerData list
@@ -91,6 +94,35 @@ public class PlayerStatController {
         switchingView(event, fxmlLoader);
     }
 
+    // Getter to allow other resource to get the current selected player
+    public static Player getSelectedPlayer() {
+        return selectedPlayer;
+    }
+
+    @FXML
+    public void switchToDetailView(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-detail.fxml"));
+        // Store the current selected Player ID, and pass to player detail controller
+        selectedPlayer = playerRecord.getSelectionModel().getSelectedItem();
+        // If no player selected, prompted error
+        if(selectedPlayer == null) {
+            Alert a = new Alert(Alert.AlertType.ERROR);
+            a.getDialogPane().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+            a.getDialogPane().getStyleClass().add("alert-warning");
+            a.setTitle("No Player Selected");
+            a.setContentText("Please select a player first");
+            a.getButtonTypes().setAll(ButtonType.OK);
+            Button okButton = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
+            okButton.setStyle("-fx-border-color:white;-fx-border-width: 5px; -fx-border-radius: 5px"); // Example style
+
+
+            a.showAndWait();
+            return;
+        }
+        //Retrieve the current stage from the Action EVent
+        switchingView(event, fxmlLoader);
+    }
+
     static void switchingView(ActionEvent event, FXMLLoader fxmlLoader) throws IOException {
         Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
@@ -102,4 +134,5 @@ public class PlayerStatController {
         stage.setScene(scene);
         stage.show();
     }
+
 }
