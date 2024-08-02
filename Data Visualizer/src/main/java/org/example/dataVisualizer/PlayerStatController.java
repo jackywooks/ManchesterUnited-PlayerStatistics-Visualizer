@@ -15,17 +15,15 @@ import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import static org.example.dataVisualizer.PlayerStatApplication.playerList;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
- * @version     1.0
+ * @version     1.1
  * @since       1.0
  */
 
+// Version 1.1 Update Stat Controller to fetch data directly from API
 public class PlayerStatController {
     /**
      * Initialize the Tableview and the column variables.
@@ -58,9 +56,10 @@ public class PlayerStatController {
     private TableColumn<Player, Double> ratingColumn;
 
     /**
-     * Create an ObservableList to store the Player's data
+     * Create an ObservableList to store the Player's data, assign it as the value from the API call
      */
-    private ObservableList<Player> playerData = FXCollections.observableArrayList();
+    private ObservableList<Player> playerData = FXCollections.observableArrayList(playerList);
+
 
     /**
      * Initialize the Tableview and link with the playerData list
@@ -68,7 +67,7 @@ public class PlayerStatController {
     @FXML
     private void initialize(){
         // Initialize the table
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("playerName"));
         goalColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("goal"));
         assistColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("assist"));
         playMinColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("playing_minutes"));
@@ -78,36 +77,6 @@ public class PlayerStatController {
         startedColumn.setCellValueFactory(new PropertyValueFactory<Player, Integer>("started"));
         //link the student table with the student data list
         playerRecord.setItems(playerData);
-        showPlayerStat();
-    }
-
-    /**
-     * To retrieve data from DB and display in the TableView
-     */
-    @FXML
-    private void showPlayerStat(){
-        DatabaseConnector dbConnector = new DatabaseConnector();
-        try (Connection connection = dbConnector.connect()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM playerStat");
-            while (resultSet.next()) {
-                //Store the result from SQL query to variables
-                String playerName = resultSet.getString("player_name");
-                int goal = resultSet.getInt("goal");
-                int assist = resultSet.getInt("assist");
-                int started = resultSet.getInt("started");
-                int playing_minutes = resultSet.getInt("playing_minutes");
-                int yellow_card = resultSet.getInt("yellow_card");
-                int red_card = resultSet.getInt("red_card");
-                double rating = resultSet.getDouble("rating");
-                //Create a player instance to store the players' info.
-                Player newPlayer = new Player(playerName, goal, assist,started, playing_minutes,yellow_card,red_card, rating);
-                //Add every player in the playerData List
-                playerData.add(newPlayer);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -119,7 +88,11 @@ public class PlayerStatController {
     public void switchToChartView(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-chart.fxml"));
        //Retrieve the current stage from the Action EVent
-        Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        switchingView(event, fxmlLoader);
+    }
+
+    static void switchingView(ActionEvent event, FXMLLoader fxmlLoader) throws IOException {
+        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
         Scene scene = new Scene(fxmlLoader.load());
         //add Bootstrap Stylesheet to the scene
         scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
