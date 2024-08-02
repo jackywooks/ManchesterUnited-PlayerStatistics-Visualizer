@@ -114,7 +114,7 @@ public class PlayerChartController {
     public void switchToTableView(ActionEvent event) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
         //Retrieve the current stage from the Action EVent
-        PlayerDetailController.switchingView(event, fxmlLoader);
+        PlayerStatController.switchingView(event, fxmlLoader);
     }
 
     /**

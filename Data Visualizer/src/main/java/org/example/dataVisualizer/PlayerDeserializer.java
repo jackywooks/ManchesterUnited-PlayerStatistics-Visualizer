@@ -64,7 +64,8 @@ public class PlayerDeserializer implements JsonDeserializer<Player> {
                     player.setRedCard(statValue.getAsInt());
                     break;
                 case "Rating":
-                    player.setRating(statValue.getAsDouble());
+                    // Round the rating to a 2 decimal place double
+                    player.setRating((double) Math.round(statValue.getAsDouble() * 100) /100);
                     break;
             }
         } catch (Exception e) {
