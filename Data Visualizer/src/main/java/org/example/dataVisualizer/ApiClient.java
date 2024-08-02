@@ -21,17 +21,14 @@ public class ApiClient {
     public static void main(String[] args) throws IOException {
         List<Integer> idList = fetchPlayersID();
         List<Player> playerList = getPlayerList(idList);
-
         savePlayerListToJSON(playerList);
-
         List<Player> playerJSONList = getPlayerJSONData();
-
         for(Player player : playerJSONList) {
             System.out.println(player.toString());
         }
     }
 
-    private static List<Player> getPlayerJSONData () throws IOException {
+    public static List<Player> getPlayerJSONData () throws IOException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/main/resources/playerJSON/players.JSON"))) {
             Gson gson = new Gson();
             Type listType = new TypeToken<List<Player>>(){}.getType();
@@ -40,7 +37,7 @@ public class ApiClient {
     }
 
     // Save the player object list to JSON using GSON
-    private static void savePlayerListToJSON(List<Player> playerList) throws IOException {
+    public static void savePlayerListToJSON(List<Player> playerList) throws IOException {
         // Saving the data in JSON file
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
@@ -53,7 +50,7 @@ public class ApiClient {
     }
 
     // Create an async list to player from the id list
-    private static List<Player> getPlayerList(List<Integer> idList) {
+    public static List<Player> getPlayerList(List<Integer> idList) {
         List<CompletableFuture<Player>> futures = idList.stream().
                 map(id -> fetchPlayerData(String.format("https://www.fotmob.com/api/playerData?id=%d",id))).toList();
 
@@ -66,7 +63,7 @@ public class ApiClient {
     }
 
     // Fetch playerID from APIs
-    private static List<Integer> fetchPlayersID(){
+    public static List<Integer> fetchPlayersID(){
         try {
             //Create New Client and Request to access player ID and NAme in the Manchester United Team
             HttpClient client = HttpClient.newHttpClient();
@@ -87,7 +84,7 @@ public class ApiClient {
 
 
     // Get the Player ID from the API response
-    private static List<Integer> getPlayerIDs(String jsonResponse){
+    public static List<Integer> getPlayerIDs(String jsonResponse){
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(jsonResponse, JsonObject.class);
 
@@ -102,7 +99,7 @@ public class ApiClient {
     }
 
     // Async function to get the playerData by id
-    private static CompletableFuture<Player> fetchPlayerData(String API_URL){
+    public static CompletableFuture<Player> fetchPlayerData(String API_URL){
         return CompletableFuture.supplyAsync(() -> {
             try {
                 HttpClient client = HttpClient.newHttpClient();
@@ -125,13 +122,13 @@ public class ApiClient {
     }
 
     // Parse the Player Response as a Player Object
-    private static Player parsePlayerJsonResponse(String jsonResponse) {
+    public static Player parsePlayerJsonResponse(String jsonResponse) {
         Gson gson = createGson();
         return gson.fromJson(jsonResponse, Player.class);
     }
 
     // Using a customised Deserializer to parse JSON from API
-    private static Gson createGson() {
+    public static Gson createGson() {
         return new GsonBuilder()
                 .registerTypeAdapter(Player.class, new PlayerDeserializer())
                 .create();

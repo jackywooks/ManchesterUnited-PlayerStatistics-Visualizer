@@ -32,6 +32,7 @@ public class Player {
 
     /**
      * Parameterized Constructor
+     * @param playerID ID of the player
      * @param playerName Name of the player
      * @param goal the no. of goals the player scored in 2023/24 Season
      * @param assist the no. of assist of the player assisted in 2023/24 Season
@@ -41,7 +42,8 @@ public class Player {
      * @param red_card no. of red card the player received in 2023/24 Season
      * @param rating the average rating of the player in 2023/24 Season
      */
-    public Player(String playerName, int goal, int assist, int started, int playing_minutes, int yellow_card, int red_card, double rating) {
+    public Player(int playerID, String playerName, int goal, int assist, int started, int playing_minutes, int yellow_card, int red_card, double rating) {
+        setPlayerID(playerID);
         setPlayerName(playerName);
         setGoal(goal);
         setAssist(assist);
