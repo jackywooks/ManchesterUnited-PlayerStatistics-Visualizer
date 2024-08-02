@@ -6,22 +6,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.example.dataVisualizer.PlayerStatApplication.playerList;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -62,65 +57,38 @@ public class PlayerChartController {
      */
     @FXML
     private void fetchGoalLeaderboard(){
+        // Set the series name as Goals
+        playerGoalSeries.setName("Goals");
 
-
-//        DatabaseConnector dbConnector = new DatabaseConnector();
-//        try (Connection connection = dbConnector.connect()) {
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("SELECT player_name,goal FROM playerStat");
-//            while (resultSet.next()) {
-//                //Store the result from SQL query to variables
-//                String name = resultSet.getString("player_name");
-//                Integer goal = resultSet.getInt("goal");
-//                //Store the data in a XY Series
-//                playerGoalSeries.setName("Goals");
-//                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(name,goal));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        //Sort the data by Goals
-//        playerGoalSeries.getData().sort(Comparator.comparingInt(d->d.getYValue().intValue()));
-//        //put XY series data in the goalLeaderboard bar chart
-//        goalLeaderboard.getData().add(playerGoalSeries);
-//        goalLeaderboard.setStyle("CHART_COLOR_1: #ff0000;");
+        // Set the data in the XY Goal Series by data in the API fetched data list
+        playerList.forEach(player ->
+                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(player.getPlayerName(),player.getGoal())));
+        //Sort the data by Goals descending order
+        playerGoalSeries.getData().sort(Comparator.<XYChart.Data<String, Number>>comparingInt(data->data.getYValue().intValue()).reversed());
+        //put XY series data in the goalLeaderboard bar chart
+        goalLeaderboard.getData().add(playerGoalSeries);
+        goalLeaderboard.setStyle("CHART_COLOR_1: #ff0000;");
     }
     /**
      * To retrieve data from DB and display in the Pie Chart
      */
     @FXML
     private void fetchRatingChart(){
-//        DatabaseConnector dbConnector = new DatabaseConnector();
-//        try (Connection connection = dbConnector.connect()) {
-//            Statement statement = connection.createStatement();
-//            ResultSet resultSet = statement.executeQuery("" +
-//                    "SELECT Category, COUNT(*) AS PlayerCount\n" +
-//                    "FROM (\n" +
-//                    "  SELECT \n" +
-//                    "    CASE WHEN Rating > 7.5 THEN 'Elite - Greater Than 7.5'\n" +
-//                    "         WHEN Rating > 6.75 THEN 'Nice - Greater Than 6.75'\n" +
-//                    "         ELSE 'Mediocre - 6.75 or Lower'\n" +
-//                    "    END AS Category\n" +
-//                    "  FROM playerStat\n" +
-//                    ") AS categorized_players\n" +
-//                    "GROUP BY Category;");
-//            while (resultSet.next()) {
-//                //Store the result from SQL query to variables
-//                String ratingGrade = resultSet.getString("Category");
-//                Double playerCount = resultSet.getDouble("PlayerCount");
-//                //Store the data in a XY Series
-//                ratingData.add(new PieChart.Data(ratingGrade,playerCount));
-//            }
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//        ratingBoard.setData(ratingData);
-//        //Default Hiding the rating board
-//        ratingBoard.setVisible(false);
+        // Store the count of the rating grade in a Hash Map
+        Map<String, Long> ratingGradeCounts = playerList.stream()
+                .collect(Collectors.groupingBy(player -> ratingGrade(player.getRating()), Collectors.counting()));
+
+        // Loop through the Hashmap, and add data in the rating data list
+        ratingGradeCounts.forEach((grade, count) -> {
+            ratingData.add(new PieChart.Data(grade, count));
+        });
+
+        ratingBoard.setData(ratingData);
+        //Default Hiding the rating board
+        ratingBoard.setVisible(false);
     }
     /**
-     * To retrieve data from DB and display in the Pie Chart
+     * Change display charts
      */
     @FXML
     private void changeToRatingBoard(){
@@ -128,7 +96,6 @@ public class PlayerChartController {
         goalLeaderboard.setVisible(false);
         ratingBoard.setVisible(true);
     }
-
     @FXML
     private void changeToGoalBoard(){
         title.setText("Goal Scorer Board");
@@ -146,5 +113,20 @@ public class PlayerChartController {
         FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
         //Retrieve the current stage from the Action EVent
         PlayerStatController.switchingView(event, fxmlLoader);
+    }
+
+    /**
+     * Get the rating and return the grade description, Helper function
+     * @param rating player Rating
+     * @return rating Grade in String
+     */
+    private static String ratingGrade(double rating){
+        if (rating > 7.5){
+            return "Elite - Greater Than 7.5";
+        }
+        if (rating > 6.75){
+            return "Nice - Greater Than 6.75";
+        }
+        return "Mediocre - 6.75 or Lower";
     }
 }
