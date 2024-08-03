@@ -2,13 +2,9 @@ package org.example.dataVisualizer;
 //import Statement
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Label;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
-
-import static org.example.dataVisualizer.PlayerStatController.switchingView;
+import static org.example.dataVisualizer.ViewController.switchView;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -29,8 +25,6 @@ public class PlayerDetailController {
 
     @FXML
     public void switchToTableView(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
-        //Retrieve the current stage from the Action EVent
-        switchingView(event, fxmlLoader);
+        switchView(event, "player-stat.fxml");
     }
 }

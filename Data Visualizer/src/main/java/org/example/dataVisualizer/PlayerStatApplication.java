@@ -3,16 +3,13 @@ package org.example.dataVisualizer;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.util.List;
 
 import static org.example.dataVisualizer.ApiClient.fetchPlayersID;
 import static org.example.dataVisualizer.ApiClient.getPlayerList;
+import static org.example.dataVisualizer.ViewController.startView;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -33,18 +30,10 @@ public class PlayerStatApplication extends Application {
 
      @Override
     public void start(Stage stage) throws Exception {
-
-         // Load Data from API
+         // Pre-Load Data from API upon application start
         playerList = loadPlayerDataFromAPI();
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        //add Bootstrap Stylesheet to the scene
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        stage.setTitle("Manchester United 23/24 Player Statistics");
-        //Apply the icon to the taskbar
-        stage.getIcons().add(new Image("file:src/main/resources/org/example/dataVisualizer/images/icon.png"));
-        stage.setScene(scene);
-        stage.show();
+        // Start the view as stat
+        startView(stage, "player-stat.fxml");
     }
 
     /**
@@ -55,6 +44,6 @@ public class PlayerStatApplication extends Application {
         List<Integer> idList = fetchPlayersID();
         assert idList != null;
         List<Player> playerList = getPlayerList(idList);
-        return FXCollections.observableArrayList( playerList);
+        return FXCollections.observableArrayList(playerList);
     }
 }

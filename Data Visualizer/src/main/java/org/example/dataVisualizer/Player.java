@@ -114,4 +114,18 @@ public class Player {
                 ", rating=" + rating +
                 '}';
     }
+
+    /**
+     * Return the grade description of the current player
+     * @return rating Grade in String
+     */
+    public String getRatingGrade(){
+        if (rating > 7.5){
+            return "Elite - Greater Than 7.5";
+        }
+        if (rating > 6.75){
+            return "Nice - Greater Than 6.75";
+        }
+        return "Mediocre - 6.75 or Lower";
+    }
 }

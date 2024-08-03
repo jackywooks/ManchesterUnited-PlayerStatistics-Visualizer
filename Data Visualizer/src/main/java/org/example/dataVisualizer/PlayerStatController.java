@@ -2,19 +2,15 @@ package org.example.dataVisualizer;
 //import Statement
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
 import static org.example.dataVisualizer.PlayerStatApplication.playerList;
+import static org.example.dataVisualizer.ViewController.switchView;
+import static org.example.dataVisualizer.ViewController.promptErrorAlert;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
@@ -89,9 +85,7 @@ public class PlayerStatController {
      */
     @FXML
     public void switchToChartView(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-chart.fxml"));
-       //Retrieve the current stage from the Action EVent
-        switchingView(event, fxmlLoader);
+        switchView(event, "player-chart.fxml");
     }
 
     // Getter to allow other resource to get the current selected player
@@ -101,38 +95,20 @@ public class PlayerStatController {
 
     @FXML
     public void switchToDetailView(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-detail.fxml"));
         // Store the current selected Player ID, and pass to player detail controller
         selectedPlayer = playerRecord.getSelectionModel().getSelectedItem();
         // If no player selected, prompted error
         if(selectedPlayer == null) {
             Alert a = new Alert(Alert.AlertType.ERROR);
-            a.getDialogPane().getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-            a.getDialogPane().getStyleClass().add("alert-warning");
-            a.setTitle("No Player Selected");
-            a.setContentText("Please select a player first");
-            a.getButtonTypes().setAll(ButtonType.OK);
-            Button okButton = (Button) a.getDialogPane().lookupButton(ButtonType.OK);
-            okButton.setStyle("-fx-border-color:white;-fx-border-width: 5px; -fx-border-radius: 5px"); // Example style
-
-
-            a.showAndWait();
+            promptErrorAlert(a,"No Player Selected","Please select a player first");
             return;
         }
-        //Retrieve the current stage from the Action EVent
-        switchingView(event, fxmlLoader);
+
+        // Switch View
+        switchView(event, "player-detail.fxml");
     }
 
-    static void switchingView(ActionEvent event, FXMLLoader fxmlLoader) throws IOException {
-        Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-        //add Bootstrap Stylesheet to the scene
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        stage.setTitle("Manchester United 23/24 Player Statistics");
-        //Apply the icon to the taskbar
-        stage.getIcons().add(new Image("file:src/main/resources/org/example/dataVisualizer/images/icon.png"));
-        stage.setScene(scene);
-        stage.show();
-    }
+
+
 
 }
