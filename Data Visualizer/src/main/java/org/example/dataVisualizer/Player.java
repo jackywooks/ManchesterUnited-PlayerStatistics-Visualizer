@@ -12,9 +12,17 @@ import com.google.gson.annotations.SerializedName;
 // Version 1.1 - Update of Player Class with GSON method to serialise JSON directly from Web
 public class Player {
     @SerializedName("id")
-    private int playerID;
+    private int id;
     @SerializedName("name")
-    private String playerName;
+    private String name;
+    @SerializedName("position")
+    private String position;
+    @SerializedName("shirtNo")
+    private String shirtNo;
+    @SerializedName("birthDate")
+    private String birthDate;
+    @SerializedName("nationality")
+    private String nationality;
     @SerializedName("goals")
     private int goal = 0;
     @SerializedName("assist")
@@ -32,8 +40,8 @@ public class Player {
 
     /**
      * Parameterized Constructor
-     * @param playerID ID of the player
-     * @param playerName Name of the player
+     * @param id ID of the player
+     * @param name Name of the player
      * @param goal the no. of goals the player scored in 2023/24 Season
      * @param assist the no. of assist of the player assisted in 2023/24 Season
      * @param started no. of games the player started in 2023/24 Season
@@ -42,9 +50,9 @@ public class Player {
      * @param red_card no. of red card the player received in 2023/24 Season
      * @param rating the average rating of the player in 2023/24 Season
      */
-    public Player(int playerID, String playerName, int goal, int assist, int started, int playing_minutes, int yellow_card, int red_card, double rating) {
-        setPlayerID(playerID);
-        setPlayerName(playerName);
+    public Player(int id, String name, int goal, int assist, int started, int playing_minutes, int yellow_card, int red_card, double rating) {
+        setId(id);
+        setName(name);
         setGoal(goal);
         setAssist(assist);
         setStarted(started);
@@ -65,19 +73,22 @@ public class Player {
      * For rating, it capped at 10
      */
 
-    public int getPlayerID() {
-        return playerID;
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
+    public String getName() {
+        return name;
     }
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
+    public String getPosition() {return position;}
+    public void setPosition(String position) {this.position = position;}
+    public String getShirtNo() {return shirtNo;}
+    public void setShirtNo(String shirtNo) {this.shirtNo = shirtNo;}
+    public String getBirthDate() {return birthDate;}
+    public void setBirthDate(String birthDate) {this.birthDate = birthDate;}
+    public String getNationality() {return nationality;}
+    public void setNationality(String nationality) {this.nationality = nationality;}
     public int getGoal() {
         return goal;
     }
@@ -103,8 +114,8 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "playerID=" + playerID +
-                ", playerName='" + playerName + '\'' +
+                "playerID=" + id +
+                ", playerName='" + name + '\'' +
                 ", goal=" + goal +
                 ", assist=" + assist +
                 ", started=" + started +

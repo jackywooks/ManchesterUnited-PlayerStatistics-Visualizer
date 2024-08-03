@@ -62,7 +62,7 @@ public class PlayerChartController {
         playerGoalSeries.setName("Goals");
         // Set the data in the XY Goal Series by data in the API fetched data list
         playerList.forEach(player ->
-                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(player.getPlayerName(),player.getGoal())));
+                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(player.getName(),player.getGoal())));
         //Sort the data by Goals descending order
         playerGoalSeries.getData().sort(Comparator.<XYChart.Data<String, Number>>comparingInt(data->data.getYValue().intValue()).reversed());
         //put XY series data in the goalLeaderboard bar chart

@@ -66,7 +66,7 @@ public class PlayerStatController {
     @FXML
     private void initialize(){
         // Initialize the table
-        nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("playerName"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<Player, String>("name"));
         goalColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("goal"));
         assistColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("assist"));
         playMinColumn.setCellValueFactory(new PropertyValueFactory<Player,Integer>("playing_minutes"));

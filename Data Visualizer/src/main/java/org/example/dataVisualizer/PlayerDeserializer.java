@@ -25,8 +25,8 @@ public class PlayerDeserializer implements JsonDeserializer<Player> {
         Player player = new Player();
 
         // Get id and name directly from the root of the JSON object
-        player.setPlayerID(playerObject.get("id").getAsInt()) ;
-        player.setPlayerName(playerObject.get("name").getAsString());
+        player.setId(playerObject.get("id").getAsInt()) ;
+        player.setName(playerObject.get("name").getAsString());
 
         // Traverse the JSON object to the stat Array
         JsonObject mainLeagueObject = playerObject.getAsJsonObject("mainLeague");
