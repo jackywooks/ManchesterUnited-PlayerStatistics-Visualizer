@@ -17,6 +17,8 @@ public class Player {
     private String name;
     @SerializedName("position")
     private String position;
+    @SerializedName("height")
+    private String height;
     @SerializedName("shirtNo")
     private String shirtNo;
     @SerializedName("birthDate")
@@ -83,6 +85,8 @@ public class Player {
     }
     public String getPosition() {return position;}
     public void setPosition(String position) {this.position = position;}
+    public String getHeight() {return height;}
+    public void setHeight(String height) {this.height = height;}
     public String getShirtNo() {return shirtNo;}
     public void setShirtNo(String shirtNo) {this.shirtNo = shirtNo;}
     public String getBirthDate() {return birthDate;}
@@ -110,12 +114,16 @@ public class Player {
     public int getRed_card() {return red_card;}
     public void setRedCard(int red_card) {this.red_card = Math.max(red_card, 0);}
 
-
     @Override
     public String toString() {
         return "Player{" +
-                "playerID=" + id +
-                ", playerName='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", position='" + position + '\'' +
+                ", height='" + height + '\'' +
+                ", shirtNo='" + shirtNo + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", nationality='" + nationality + '\'' +
                 ", goal=" + goal +
                 ", assist=" + assist +
                 ", started=" + started +

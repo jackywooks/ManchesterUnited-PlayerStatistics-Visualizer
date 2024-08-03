@@ -28,6 +28,27 @@ public class PlayerDeserializer implements JsonDeserializer<Player> {
         player.setId(playerObject.get("id").getAsInt()) ;
         player.setName(playerObject.get("name").getAsString());
 
+        // Get birthDate object
+        JsonObject birthDateObject = playerObject.getAsJsonObject("birthDate");
+
+        // Get utcTime from birthDate object
+        player.setBirthDate(birthDateObject.get("utcTime").getAsString());
+
+        // Get primaryPosition
+        JsonObject positionDescriptionObject = playerObject.getAsJsonObject("positionDescription");
+        JsonObject primaryPositionObject = positionDescriptionObject.getAsJsonObject("primaryPosition");
+
+        // Get Nationality
+        JsonArray playerInformationArray = playerObject.getAsJsonArray("playerInformation");
+        // Iterate over the playerInformation array
+        for (JsonElement playerInfoElement : playerInformationArray) {
+            JsonObject playerInfoObject = playerInfoElement.getAsJsonObject();
+            setPlayerInfo(playerInfoObject, player);
+        }
+
+        // Extract label and key from primaryPosition
+        player.setPosition(primaryPositionObject.get("label").getAsString());
+
         // Traverse the JSON object to the stat Array
         JsonObject mainLeagueObject = playerObject.getAsJsonObject("mainLeague");
         JsonArray statsArray = mainLeagueObject.getAsJsonArray("stats");
@@ -38,6 +59,25 @@ public class PlayerDeserializer implements JsonDeserializer<Player> {
             setPlayerStat(stats, player);
         }
         return player;
+    }
+
+    private static void setPlayerInfo(JsonObject playerInfoObject, Player player) {
+        String title = playerInfoObject.get("title").getAsString();
+        try {
+            switch (title) {
+                case "Country" -> player.setNationality(playerInfoObject.get("countryCode").getAsString());
+                case "Shirt" -> {
+                    JsonObject valueObject = playerInfoObject.getAsJsonObject("value");
+                    player.setShirtNo(valueObject.get("numberValue").getAsString());
+                }
+                case "Height" -> {
+                    JsonObject valueObject = playerInfoObject.getAsJsonObject("value");
+                    player.setHeight(valueObject.get("fallback").getAsString());
+                }
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private static void setPlayerStat(JsonObject stats, Player player) {
