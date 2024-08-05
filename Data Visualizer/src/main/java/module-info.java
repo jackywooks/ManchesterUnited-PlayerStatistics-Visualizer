@@ -10,6 +10,7 @@ module org.example.dataVisualizer {
     requires java.net.http;
 //    requires json;
     requires com.google.gson;
+    requires javafx.swing;
 
     opens org.example.dataVisualizer to javafx.fxml, com.google.gson;
 
