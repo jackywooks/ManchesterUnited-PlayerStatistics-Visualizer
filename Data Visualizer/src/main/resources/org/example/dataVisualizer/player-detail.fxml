@@ -1,26 +1,196 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
-<?import javafx.geometry.Insets?>
-<VBox alignment="CENTER" minHeight="800.0" minWidth="800.0" prefHeight="800.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.dataVisualizer.PlayerDetailController">
+<VBox alignment="CENTER" minHeight="800.0" minWidth="800.0" prefHeight="800.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.dataVisualizer.PlayerDetailController">
    <children>
-      <GridPane>
+      <GridPane prefHeight="777.0" prefWidth="800.0">
           <columnConstraints>
-              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              <ColumnConstraints hgrow="SOMETIMES" maxWidth="50.0" minWidth="10.0" prefWidth="50.0" />
+              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="605.0" minWidth="10.0" prefWidth="500.0" />
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="185.0" minWidth="10.0" prefWidth="184.0" />
           </columnConstraints>
           <rowConstraints>
-              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints valignment="CENTER" />
+            <RowConstraints maxHeight="550.0" minHeight="250.0" prefHeight="335.0" />
+            <RowConstraints maxHeight="350.0" minHeight="0.0" prefHeight="350.0" />
           </rowConstraints>
          <children>
-            <Button fx:id="back" mnemonicParsing="false" onAction="#switchToTableView" styleClass="btn,btn-primary" text="Back" GridPane.rowIndex="1" />
+            <Button fx:id="back" mnemonicParsing="false" onAction="#switchToTableView" prefHeight="25.0" prefWidth="68.0" styleClass="btn,btn-danger" text="Back" />
+            <Label fx:id="name" alignment="CENTER" prefHeight="90.0" prefWidth="676.0" text="PLayer Name" textAlignment="CENTER" textFill="RED" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+               <font>
+                  <Font name="HelveticaCE-Bold" size="40.0" />
+               </font>
+               <padding>
+                  <Insets top="5.0" />
+               </padding></Label>
+            <SplitPane dividerPositions="0.29797979797979796" prefHeight="272.0" prefWidth="800.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: BLACK;">
+                     <children>
+                        <ImageView fx:id="propic" fitHeight="267.0" fitWidth="200.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="557.0" style="-fx-background-color: BLACK;">
+                     <children>
+                        <GridPane fx:id="basicInfo" prefHeight="298.0" prefWidth="529.0">
+                           <columnConstraints>
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="118.0" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="352.0" />
+                           </columnConstraints>
+                           <rowConstraints>
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           </rowConstraints>
+                           <children>
+                              <Label text="Basic Information" textFill="RED" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="23.0" />
+                                 </font></Label>
+                              <Label text="Position:" textFill="WHITE" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font></Label>
+                              <Label text="Height:" textFill="WHITE" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font></Label>
+                              <Label text="Shirt No.:" textFill="WHITE" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font></Label>
+                              <Label text="Birthdate(Age):" textFill="WHITE" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font></Label>
+                              <Label text="Nationality:" textFill="WHITE" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font></Label>
+                              <Label fx:id="position" text="{Pos}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="height" text="{Height}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="shirtNo" text="{ShirtNo}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="bday" text="{Bday}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="nationality" text="{Nationality}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <font>
+                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </GridPane>
+                     </children>
+                  </AnchorPane>
+              </items>
+            </SplitPane>
+            <GridPane fx:id="stat" prefHeight="302.0" prefWidth="760.0" GridPane.columnSpan="3" GridPane.rowIndex="2">
+              <columnConstraints>
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="248.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="253.0" />
+                  <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="266.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                   <Label text="Seasonal Statistics" textFill="RED" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font></Label>
+                  <Label text="Goal" textFill="WHITE" GridPane.rowIndex="2" GridPane.valignment="CENTER">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label text="Assist" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label text="Started Game" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label text="Player Minutes" textFill="WHITE" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label text="Yellow Card" textFill="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label text="Red Card" textFill="WHITE" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="20.0" />
+                     </font></Label>
+                  <Label fx:id="goal" text="{Goal}" textFill="RED" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="assist" text="{Assist}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="start" text="{Started}" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="minutes" text="{Min}" textFill="RED" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="yellowCard" text="{YC}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="redCard" text="{RC}" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="HelveticaCE-Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </GridPane>
+            <Label fx:id="rating" alignment="CENTER" prefHeight="70.0" prefWidth="135.0" text="0.00" textAlignment="CENTER" GridPane.columnIndex="2">
+               <font>
+                  <Font name="HelveticaCE-Bold" size="55.0" />
+               </font>
+            </Label>
          </children>
           <padding>
               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
