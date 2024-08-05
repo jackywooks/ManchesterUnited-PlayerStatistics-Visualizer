@@ -1,0 +1,14 @@
+.alert-dismiss{
+    -fx-border-color:white;
+    -fx-border-width: 2px;
+    -fx-border-radius: 1.5px;
+}
+
+
+.rating-board{
+    -fx-text-base-color: white;
+}
+
+.goal-board{
+    CHART_COLOR_1: #ff0000;
+}

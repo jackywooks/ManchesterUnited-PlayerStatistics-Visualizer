@@ -1,34 +1,30 @@
 package org.example.dataVisualizer;
-//import Statement
 
+//import Statement
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Comparator;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import static org.example.dataVisualizer.PlayerStatApplication.playerList;
+import static org.example.dataVisualizer.ViewController.switchView;
 
 /**
  * @author      Jacky Woo jackywooksca@gmail.com
- * @version     1.0
+ * @version     1.1
  * @since       1.0
  */
 
+// Version 1.1 Update to fetch data from API
 public class PlayerChartController {
     @FXML
     private Label title;
@@ -62,63 +58,38 @@ public class PlayerChartController {
      */
     @FXML
     private void fetchGoalLeaderboard(){
-        DatabaseConnector dbConnector = new DatabaseConnector();
-        try (Connection connection = dbConnector.connect()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT player_name,goal FROM playerStat");
-            while (resultSet.next()) {
-                //Store the result from SQL query to variables
-                String name = resultSet.getString("player_name");
-                Integer goal = resultSet.getInt("goal");
-                //Store the data in a XY Series
-                playerGoalSeries.setName("Goals");
-                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(name,goal));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        //Sort the data by Goals
-        playerGoalSeries.getData().sort(Comparator.comparingInt(d->d.getYValue().intValue()));
+        // Set the series name as Goals
+        playerGoalSeries.setName("Goals");
+        // Set the data in the XY Goal Series by data in the API fetched data list
+        playerList.forEach(player ->
+                playerGoalSeries.getData().add(new XYChart.Data<String,Number>(player.getName(),player.getGoal())));
+        //Sort the data by Goals descending order
+        playerGoalSeries.getData().sort(Comparator.<XYChart.Data<String, Number>>comparingInt(data->data.getYValue().intValue()).reversed());
         //put XY series data in the goalLeaderboard bar chart
         goalLeaderboard.getData().add(playerGoalSeries);
-        goalLeaderboard.setStyle("CHART_COLOR_1: #ff0000;");
+        // Style the goal board
+        goalLeaderboard.getStyleClass().add("goal-board");
     }
     /**
      * To retrieve data from DB and display in the Pie Chart
      */
     @FXML
     private void fetchRatingChart(){
-        DatabaseConnector dbConnector = new DatabaseConnector();
-        try (Connection connection = dbConnector.connect()) {
-            Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("" +
-                    "SELECT Category, COUNT(*) AS PlayerCount\n" +
-                    "FROM (\n" +
-                    "  SELECT \n" +
-                    "    CASE WHEN Rating > 7.5 THEN 'Elite - Greater Than 7.5'\n" +
-                    "         WHEN Rating > 6.75 THEN 'Nice - Greater Than 6.75'\n" +
-                    "         ELSE 'Mediocre - 6.75 or Lower'\n" +
-                    "    END AS Category\n" +
-                    "  FROM playerStat\n" +
-                    ") AS categorized_players\n" +
-                    "GROUP BY Category;");
-            while (resultSet.next()) {
-                //Store the result from SQL query to variables
-                String ratingGrade = resultSet.getString("Category");
-                Double playerCount = resultSet.getDouble("PlayerCount");
-                //Store the data in a XY Series
-                ratingData.add(new PieChart.Data(ratingGrade,playerCount));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
+        // Store the count of the rating grade in a Hash Map
+        Map<String, Long> ratingGradeCounts = playerList.stream()
+                .collect(Collectors.groupingBy(Player::getRatingGrade, Collectors.counting()));
+        // Loop through the Hashmap, and add data in the rating data list
+        ratingGradeCounts.forEach((grade, count) -> {
+            ratingData.add(new PieChart.Data(grade, count));
+        });
         ratingBoard.setData(ratingData);
         //Default Hiding the rating board
         ratingBoard.setVisible(false);
+        // Style the rating board
+        ratingBoard.getStyleClass().add("rating-board");
     }
     /**
-     * To retrieve data from DB and display in the Pie Chart
+     * Change display charts
      */
     @FXML
     private void changeToRatingBoard(){
@@ -136,21 +107,10 @@ public class PlayerChartController {
 
     /**
      * Switch the scene to Table View, by loading the "player-stat.fxml", retrieve the current stage, and switch to the loaded fxml
-     *
      * @param event Action Event, fxid:switchTable button in player-chart
      */
     @FXML
     public void switchToTableView(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(PlayerStatApplication.class.getResource("player-stat.fxml"));
-        //Retrieve the current stage from the Action EVent
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(fxmlLoader.load());
-        //add Bootstrap Stylesheet to the scene
-        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        stage.setTitle("Manchester United 23/24 Player Statistics");
-        //Apply the icon to the taskbar
-        stage.getIcons().add(new Image("file:src/main/resources/org/example/dataVisualizer/images/icon.png"));
-        stage.setScene(scene);
-        stage.show();
+        switchView(event, "player-stat.fxml");
     }
 }
