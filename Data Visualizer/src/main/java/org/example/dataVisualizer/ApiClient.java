@@ -3,17 +3,16 @@ package org.example.dataVisualizer;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.lang.reflect.Type;
 import java.net.URI;
+import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 
@@ -26,6 +25,8 @@ public class ApiClient {
         for(Player player : playerJSONList) {
             System.out.println(player.toString());
         }
+
+
     }
 
     public static List<Player> getPlayerJSONData () throws IOException {
@@ -64,9 +65,8 @@ public class ApiClient {
 
     // Fetch playerID from APIs
     public static List<Integer> fetchPlayersID(){
-        try {
+        try (HttpClient client = HttpClient.newHttpClient()){
             //Create New Client and Request to access player ID and NAme in the Manchester United Team
-            HttpClient client = HttpClient.newHttpClient();
             HttpRequest basicRequest = HttpRequest.newBuilder()
                     .uri(URI.create("https://www.fotmob.com/api/leagueseasondeepstats?id=47&season=20720&type=players&stat=goals&teamId=10260&slug=manchester-united"))
                     .GET()
@@ -101,8 +101,7 @@ public class ApiClient {
     // Async function to get the playerData by id
     public static CompletableFuture<Player> fetchPlayerData(String API_URL){
         return CompletableFuture.supplyAsync(() -> {
-            try {
-                HttpClient client = HttpClient.newHttpClient();
+            try (HttpClient client = HttpClient.newHttpClient()){
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(API_URL))
                         .build();
@@ -132,5 +131,61 @@ public class ApiClient {
         return new GsonBuilder()
                 .registerTypeAdapter(Player.class, new PlayerDeserializer())
                 .create();
+    }
+
+    //fetch Propic of player online
+    public static BufferedImage fetchProPic(int PlayerID) throws IOException {
+        URL url = null;
+        try {
+            url = new URL(String.format("https://www.fotmob.com/_next/image?url=http%%3A%%2F%%2Fimages.fotmob.com%%2Fimage_resources%%2Fplayerimages%%2F%d.png&w=96&q=75",PlayerID));
+            return ImageIO.read(url);
+        } catch (IOException e) {
+            System.err.println("Error fetching image for country: " + PlayerID);
+        }
+        return null;
+    }
+
+    //fetch country pic of player online
+    public static BufferedImage fetchCountryPic(String countryName) throws IOException {
+        String countryCode = convertCountryCode(countryName);
+        URL url = null;
+        try {
+            url = new URL(String.format("https://flagcdn.com/w80/%s.png", countryCode));
+            return ImageIO.read(url);
+        } catch (IOException e) {
+            System.err.println("Error fetching image for country: " + countryName);
+        }
+        return null;
+    }
+
+    // convert country name to country code
+    private static String convertCountryCode(String countryName) {
+        try (HttpClient client = HttpClient.newHttpClient()){
+            //Create New Client and Request to get the code and country name mapping json
+            HttpRequest basicRequest = HttpRequest.newBuilder()
+                    .uri(URI.create("https://flagcdn.com/en/codes.json"))
+                    .GET()
+                    .build();
+            HttpResponse<String> response = client.send(basicRequest, HttpResponse.BodyHandlers.ofString());
+            //Scrap Data from Team Page in Fotmob to get the player ID
+            String jsonResponse = response.body();
+            return getCountryCode(jsonResponse, countryName);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    // lookup the country code from a hashmap
+    private static String getCountryCode(String jsonResponse, String countryName) {
+        Gson gson = new Gson();
+        HashMap<String,String> map = gson.fromJson(jsonResponse, HashMap.class);
+        for(Map.Entry<String,String> entry : map.entrySet()){
+            if (Objects.equals(countryName, entry.getValue())) {
+                return entry.getKey();
+            }
+        }
+        return null;
     }
 }
