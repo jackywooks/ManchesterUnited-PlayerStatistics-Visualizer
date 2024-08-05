@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,19 +35,19 @@
                <padding>
                   <Insets top="5.0" />
                </padding></Label>
-            <SplitPane dividerPositions="0.29797979797979796" prefHeight="272.0" prefWidth="800.0" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
+            <SplitPane dividerPositions="0.29797979797979796" prefHeight="272.0" prefWidth="800.0" style="-fx-border-width: 0;" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" style="-fx-background-color: BLACK;">
                      <children>
-                        <ImageView fx:id="propic" fitHeight="267.0" fitWidth="200.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="propic" fitHeight="96.0" fitWidth="96.0" layoutX="64.0" layoutY="112.0" pickOnBounds="true" preserveRatio="true" />
                      </children>
                   </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="557.0" style="-fx-background-color: BLACK;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="295.0" prefWidth="557.0" style="-fx-background-color: black;">
                      <children>
-                        <GridPane fx:id="basicInfo" prefHeight="298.0" prefWidth="529.0">
+                        <GridPane fx:id="basicInfo" prefHeight="298.0" prefWidth="529.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                            <columnConstraints>
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="118.0" />
-                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="352.0" />
+                              <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="187.5" />
+                              <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="371.0" minWidth="10.0" prefWidth="341.5" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -57,7 +58,7 @@
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label text="Basic Information" textFill="RED" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" GridPane.valignment="CENTER">
+                              <Label text="Basic Information" textFill="RED" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="HelveticaCE-Bold" size="23.0" />
                                  </font></Label>
@@ -73,9 +74,9 @@
                                  <font>
                                     <Font name="HelveticaCE-Bold" size="20.0" />
                                  </font></Label>
-                              <Label text="Birthdate(Age):" textFill="WHITE" GridPane.rowIndex="4">
+                              <Label text="Date of Birth(Age):" textFill="WHITE" GridPane.rowIndex="4">
                                  <font>
-                                    <Font name="HelveticaCE-Bold" size="20.0" />
+                                    <Font name="HelveticaCE-Bold" size="18.0" />
                                  </font></Label>
                               <Label text="Nationality:" textFill="WHITE" GridPane.rowIndex="5">
                                  <font>
@@ -101,11 +102,25 @@
                                     <Font name="HelveticaCE-Bold" size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="nationality" text="{Nationality}" textFill="RED" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                                 <font>
-                                    <Font name="HelveticaCE-Bold" size="20.0" />
-                                 </font>
-                              </Label>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                 <children>
+                                    <Label fx:id="nationality" alignment="CENTER" text="{Nationality}" textFill="RED">
+                                       <font>
+                                          <Font name="HelveticaCE-Bold" size="20.0" />
+                                       </font>
+                                       <HBox.margin>
+                                          <Insets right="10.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <ImageView fx:id="flag" fitHeight="55.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin></ImageView>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                              </HBox>
                            </children>
                         </GridPane>
                      </children>
@@ -186,7 +201,7 @@
                   </Label>
                </children>
             </GridPane>
-            <Label fx:id="rating" alignment="CENTER" prefHeight="70.0" prefWidth="135.0" text="0.00" textAlignment="CENTER" GridPane.columnIndex="2">
+            <Label fx:id="rating" alignment="CENTER" prefHeight="70.0" prefWidth="135.0" style="-fx-border-radius: 5px;" text="0.00" textAlignment="CENTER" textFill="WHITE" GridPane.columnIndex="2">
                <font>
                   <Font name="HelveticaCE-Bold" size="55.0" />
                </font>
