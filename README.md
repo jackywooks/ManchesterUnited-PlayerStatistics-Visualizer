@@ -13,6 +13,8 @@ GSON <br>
 json-20140107.jar <br>
 https://mvnrepository.com/artifact/org.json/json/20231013 <br>
 <br>
+JavaFX Swing <br>
+11-ea+24 <br>
 App Icon:
 <a href="https://www.flaticon.com/free-icons/manchester-united" title="manchester united icons">Manchester united icons created by faisalovers - Flaticon</a>
 
