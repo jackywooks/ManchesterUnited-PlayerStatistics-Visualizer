@@ -65,7 +65,9 @@ public class PlayerDeserializer implements JsonDeserializer<Player> {
         String title = playerInfoObject.get("title").getAsString();
         try {
             switch (title) {
-                case "Country" -> player.setNationality(playerInfoObject.get("countryCode").getAsString());
+                case "Country" -> {
+                    JsonObject valueObject = playerInfoObject.getAsJsonObject("value");
+                    player.setNationality(valueObject.get("fallback").getAsString());}
                 case "Shirt" -> {
                     JsonObject valueObject = playerInfoObject.getAsJsonObject("value");
                     player.setShirtNo(valueObject.get("numberValue").getAsString());
